@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+
+    <style>
+      .heading1 {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- // write a JS script to append a heading in root div -->
+    <div id="root"></div>
+
+    <script>
+      let root = document.getElementById("root");
+      // React.createElement(type, props, children)
+      let container = React.createElement(
+        React.Fragment,
+        null,
+        React.createElement(
+          "h1",
+          {
+            className: "heading1",
+            style: { fontSize: "50px", backgroundColor: "blue" },
+          },
+          "Hello from React"
+        ),
+        React.createElement(
+          "h2",
+          {
+            className: "heading1",
+            style: { fontSize: "20px", backgroundColor: "blue" },
+          },
+          "Hello from React2"
+        )
+      );
+
+      ReactDOM.render(container, root);
+    </script>
+  </body>
+</html>
