@@ -2,6 +2,7 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import Card from "./components/Card";
 import Counter from "./components/counter";
+import Form from "./components/form";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Card cardTitle="3" cardDescription="This is card 3"/>
       {/* <h1> heeellloooo </h1> */}
       <Counter />
+      <Form />
     </div>
   );
 }
