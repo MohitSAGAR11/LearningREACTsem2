@@ -1,20 +1,26 @@
 import "./App.css";
-import Navbar from "./components/Navbar";
-import Card from "./components/Card";
 import Counter from "./components/counter";
-import Form from "./components/form";
-
+import ToggleVisibility from "./components/ToggleVisibility";
+import ControlledInput from "./components/ControlledInput";
+import AdditemList from "./components/AdditemList";
+import FormReset from "./components/FormReset";
 function App() {
   return (
-    <div>
-      <Navbar />
-      <Card cardTitle="1" cardDescription="This is card 1"/>
-      <Card cardTitle="2" cardDescription="This is card 2"/>
-      <Card cardTitle="3" cardDescription="This is card 3"/>
-      {/* <h1> heeellloooo </h1> */}
-      <Counter />
-      <Form />
-    </div>
+    <>
+      <Counter />;
+      <div>
+      <ToggleVisibility />
+      </div>
+      <div>
+        <ControlledInput />
+      </div>
+      <div>
+        <AdditemList />
+      </div>
+      <div>
+        <FormReset />
+      </div>
+    </>
   );
 }
 

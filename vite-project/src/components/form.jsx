@@ -17,7 +17,7 @@ function Form() {
   return (
     <form onSubmit={handleSubmit}>
       <label>Name :</label>
-      <input type="text" onChange={(e) => setName(e.target.value)} />
+      <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
 
       <label>Email :</label>
       <input type="email" onChange={(e) => setEmail(e.target.value)} />

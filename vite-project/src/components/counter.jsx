@@ -1,29 +1,32 @@
-import React, { useState } from "react";
-import './Counter.css';
+import React , { useState } from 'react';
 
-const Counter = () => {
-    const [count, setCount] = useState(0);
 
-    function increment() {
-        setCount(count + 1);
-    }
+function Counter() {
+//   const [count, setCount] = useState(() => {
+//     console.log('useState callback');
+//     return 0;
+//   });
 
-    function decrement() {
-        setCount(count - 1);
-    }
+    const [state , setState] = useState({count: 0 , name: 'John'})
+    const count = state.count;
+    const name = state.name;
+   
+  const increment = () => setState(prevState => {
+    return {...prevState , count : prevState.count + 1}
+  });
+  const decrement = () => setState(prevState => {
+    return {...prevState , count : prevState.count - 1}
+  });
+  const reset = () => setState({count : 0})
 
-    function reset() {
-        setCount(0);
-    }
-
-    return (
+  return (
     <div>
-        <button onClick={increment}>+</button>
-        <h1>{count}</h1>
-        <button onClick={decrement}>-</button>
-        <button onClick={reset}>Reset</button>
+      <button onClick={increment}>+</button>
+      <h1 >{count}</h1>
+      <button onClick={decrement}>-</button>
+      <button onClick={reset}>Reset</button>
     </div>
-    );
-};
+  )
+}
 
 export default Counter;

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Make it mobile friendly -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GitHub Profile Finder</title>
+  <!-- Import a modern font (Roboto) -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* Base Reset and CSS Variables */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary-color: #007acc;
+      --secondary-color: #005a9c;
+      --bg-color: #f4f4f4;
+      --text-color: #333;
+      --card-bg: #fff;
+      --transition-speed: 0.3s;
+    }
+
+    /* Global Styles */
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #f9f9f9, #e0e0e0);
+      padding: 20px;
+      color: var(--text-color);
+      min-height: 100vh;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+      animation: fadeIn 1s ease;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      color: var(--secondary-color);
+      font-weight: 500;
+    }
+
+    /* Form Styling */
+    form {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    input[type="text"] {
+      padding: 12px 15px;
+      font-size: 1em;
+      width: 80%;
+      max-width: 400px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      transition: border-color var(--transition-speed);
+      outline: none;
+      margin-bottom: 10px;
+    }
+
+    input[type="text"]:focus {
+      border-color: var(--primary-color);
+    }
+
+    button {
+      padding: 12px 20px;
+      font-size: 1em;
+      border: none;
+      background: var(--primary-color);
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background var(--transition-speed), transform var(--transition-speed);
+      margin-left: 10px;
+      margin-bottom: 10px;
+    }
+
+    button:hover {
+      background: var(--secondary-color);
+      transform: scale(1.05);
+    }
+
+    /* Error Message Styling */
+    .error {
+      text-align: center;
+      margin-bottom: 20px;
+      color: red;
+      animation: shake 0.5s;
+    }
+
+    /* Profile Card Styling */
+    #profileContainer {
+      max-width: 600px;
+      margin: 0 auto;
+      animation: fadeIn 0.8s ease;
+    }
+
+    .profile {
+      background: var(--card-bg);
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      animation: fadeInUp 0.5s ease;
+    }
+
+    .profile img {
+      width: 150px;
+      border-radius: 50%;
+      transition: transform var(--transition-speed);
+    }
+
+    .profile img:hover {
+      transform: scale(1.1);
+    }
+
+    .profile .info {
+      margin-left: 20px;
+    }
+
+    .profile .info h2 {
+      margin-bottom: 10px;
+    }
+
+    .profile .details {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .profile .stats {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .profile .stats div {
+      flex: 1;
+      font-weight: 500;
+      padding: 10px;
+      transition: background var(--transition-speed);
+      border-radius: 4px;
+      margin: 0 5px;
+    }
+
+    .profile .stats div:hover {
+      background: rgba(0, 122, 204, 0.1);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      .profile {
+        padding: 15px;
+      }
+      form {
+        flex-direction: column;
+        align-items: center;
+      }
+      button {
+        margin-left: 0;
+        width: 80%;
+      }
+      input[type="text"] {
+        width: 80%;
+      }
+      .profile .stats {
+        flex-direction: column;
+      }
+      .profile .info {
+        margin-left: 0;
+        margin-top: 15px;
+      }
+    }
+
+    /* Keyframe Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-5px); }
+      100% { transform: translateX(0); }
+    }
+
+    /* Spinner for Loading State */
+    .spinner {
+      border: 4px solid #f3f3f3; /* Light grey */
+      border-top: 4px solid var(--primary-color); /* Primary color */
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>GitHub Profile Finder</h1>
+    <p>Find a GitHub profile summary instantly</p>
+  </header>
+  <main>
+    <form id="searchForm">
+      <input type="text" id="usernameInput" placeholder="Enter GitHub username..." required>
+      <button type="submit">Search</button>
+    </form>
+    <div class="error" id="errorMessage"></div>
+    <div id="profileContainer"></div>
+  </main>
+
+  <script>
+    // Get references to DOM elements
+    const searchForm = document.getElementById('searchForm');
+    const usernameInput = document.getElementById('usernameInput');
+    const profileContainer = document.getElementById('profileContainer');
+    const errorMessage = document.getElementById('errorMessage');
+
+    // Listen for form submission
+    searchForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = usernameInput.value.trim();
+      if (!username) {
+        errorMessage.textContent = 'Please enter a GitHub username.';
+        return;
+      }
+      errorMessage.textContent = '';
+      profileContainer.innerHTML = '<div class="spinner"></div>';
+      
+      try {
+        // Fetch data from GitHub API
+        const response = await fetch(`https://api.github.com/users/${username}`);
+        if (!response.ok) {
+          throw new Error('User not found');
+        }
+        const data = await response.json();
+        displayProfile(data);
+      } catch (error) {
+        errorMessage.textContent = error.message;
+        profileContainer.innerHTML = '';
+      }
+    });
+
+    // Function to display the profile data
+    function displayProfile(data) {
+      profileContainer.innerHTML = '';
+      const profileDiv = document.createElement('div');
+      profileDiv.classList.add('profile');
+
+      // Build the profile card markup
+      profileDiv.innerHTML = `
+        <div style="display: flex; align-items: center; flex-wrap: wrap;">
+          <img src="${data.avatar_url}" alt="${data.login}'s avatar">
+          <div class="details">
+            <div class="info">
+              <h2>${data.name || data.login}</h2>
+              ${data.bio ? `<p>${data.bio}</p>` : ''}
+              <p><a href="${data.html_url}" target="_blank">Visit GitHub Profile</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="stats">
+          <div><strong>Followers</strong><br>${data.followers}</div>
+          <div><strong>Following</strong><br>${data.following}</div>
+          <div><strong>Repos</strong><br>${data.public_repos}</div>
+        </div>
+      `;
+      profileContainer.appendChild(profileDiv);
+    }
+  </script>
+</body>
+</html>
